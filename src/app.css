@@ -1,0 +1,25 @@
+.App {
+    max-width: 1440px;
+    margin: 0 auto;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 1440px) {
+    .App {
+        max-width: 1220px;
+    }
+}
+@media screen and (max-width: 1220px) {
+    .App {
+        max-width: 960px;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .App {
+        max-width: 720px;
+    }
+}
