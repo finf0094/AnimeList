@@ -5,6 +5,7 @@ import s from './cards.module.css'
 import rating from '../../icons/rating.png'
 import { getAnimesThunk } from '../../store/animeReducer'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Cards = () => {
   const dispatch = useDispatch()

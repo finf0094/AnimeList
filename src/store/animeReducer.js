@@ -4,6 +4,7 @@ import axios from "axios"
 
 const initialState = {
     animes: [],
+    isFilter: []
 }
 
 const animeReducer = (state = initialState, action) => {
@@ -13,6 +14,11 @@ const animeReducer = (state = initialState, action) => {
                 ...state,
                  animes: [...action.payload]
                 }
+        case 'FILTERED':
+            return {
+                ...state,
+                isFilter: animes
+            }
         default:
             return state
     }
