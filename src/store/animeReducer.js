@@ -13,8 +13,6 @@ const animeReducer = (state = initialState, action) => {
                 ...state,
                  animes: [...action.payload]
                 }
-        
-
         default:
             return state
     }
