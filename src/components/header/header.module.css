@@ -20,7 +20,14 @@
     font-size: 18px;
     font-weight: 500;
 }
-
+a {
+    text-decoration: none;
+    color: black;
+    transition: ease 0.2s all;
+}
+a:hover {
+    color: darkblue;
+}
 .hideAds {
     display: flex;
     align-items:center;

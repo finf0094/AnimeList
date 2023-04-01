@@ -1,24 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import s from './search.module.css'
 
 import search from '../../icons/search.png'
+import { searchAnimeThunk } from '../../store/animeReducer';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Search = () => {
+  const dispatch = useDispatch()
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    console.log(searchTerm)
+    try {
+      dispatch(searchAnimeThunk(searchTerm));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={s.wrapper} >
       <div className={s.input}>
-        <input type="search" placeholder='Search Anime, Manga and more...' />
+        <input type="search" placeholder='Search Anime, Manga and more...' onChange={(e) => setSearchTerm(e.target.value)} />
         <div className={s.searchPanel}>
-          <div class={s.dropdown}>
-            <button class={s.dropbtn}>All</button>
-            <div class={s.dropdownContent}>
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
+          <div className={s.dropdown}>
+            <button className={s.dropbtn}>All</button>
+            <div className={s.dropdownContent}>
+              <Link to="/anime/filter/-averageRating">descending rating</Link>
+              <Link to="/anime/filter/averageRating">ascending rating</Link>
+              <Link to="/anime/filter/popularityRank">Popularity</Link>
             </div>
           </div>
-          <button className={s.searchBtn}>
+          <button className={s.searchBtn} onClick={handleSearch}>
             <img src={search} />
           </button>
         </div>

@@ -6,6 +6,7 @@ import Cards from "./components/Cards/Cards"
 import AnimeInfo from "./components/animeInfo/animeInfo"
 
 import './app.css'
+import DescendingFilter from "./components/Cards/filtersPage/DescendingFilter"
 
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
       <Search />
       <Routes>
         <Route path="/anime" element={<Cards />}/>
-        <Route path="/anime:id" element={<AnimeInfo />}/>
+        <Route path="/anime/filter/:filterParam" element={<DescendingFilter />}/>
+        <Route path="/anime/:id" element={<AnimeInfo />}/>
       </Routes>
     </div>
   )
