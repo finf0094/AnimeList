@@ -5,7 +5,7 @@ import { descendingFilterThunk, toggleFetchingAc } from '../../../store/animeRed
 
 import rating from '../../../icons/rating.png'
 import s from '../cards.module.css'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const DescendingFilter = () => {
     const dispatch = useDispatch()
@@ -37,16 +37,16 @@ const DescendingFilter = () => {
     return (
         <div className={s.wrapper}>
             {animes.map(anime => (
-                <div className={s.card} key={anime.id}>
+                <Link to={`/anime/${anime.id}`} className={s.card} key={anime.id}>
                     <img src={anime.attributes.posterImage.small} alt="anime image" />
                     <div className={s.row}>
-                        <h4 className={s.animeTitle}>{anime.attributes.slug}</h4>
+                        <h4 className={s.animeTitle}>{anime.attributes.canonicalTitle}</h4>
                         <div style={{ display: 'flex', gap: 5 }}>
                             <p>{anime.attributes.averageRating}</p>
                             <img src={rating} alt="rating" />
                         </div>
                     </div>
-                </div>))}
+                </Link>))}
         </div>
     )
 }

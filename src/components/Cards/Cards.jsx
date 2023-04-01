@@ -34,20 +34,20 @@ const Cards = () => {
     }
   }
 
-  
+
   return (
     <div className={s.wrapper}>
       {animes.map(anime => (
-        <div className={s.card} key={anime.id}>
-          <img src={anime.attributes.posterImage.small} alt="anime image" />
-          <div className={s.row}>
-            <h4 className={s.animeTitle}>{anime.attributes.slug}</h4>
-            <div style={{ display: 'flex', gap: 5 }}>
-              <p>{anime.attributes.averageRating}</p>
-              <img src={rating} alt="rating" />
+          <Link to={`/anime/${anime.id}`} className={s.card} key={anime.id}>
+            <img src={anime.attributes.posterImage.small} alt="anime image" />
+            <div className={s.row}>
+              <h4 className={s.animeTitle}>{anime.attributes.canonicalTitle}</h4>
+              <div style={{ display: 'flex', gap: 5 }}>
+                <p>{anime.attributes.averageRating}</p>
+                <img src={rating} alt="rating" />
+              </div>
             </div>
-          </div>
-        </div>))}
+          </Link>))}
     </div>
   )
 }

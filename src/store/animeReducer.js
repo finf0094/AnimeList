@@ -5,7 +5,9 @@ import axios from "axios"
 const initialState = {
     animes: [],
     descendingFilter: [],
-    fetching: false
+    fetching: true,
+    anime: {},
+    genres: []
 }
 
 const animeReducer = (state = initialState, action) => {
@@ -32,6 +34,16 @@ const animeReducer = (state = initialState, action) => {
                 ...state,
                 descendingFilter: [...state.descendingFilter, ...action.payload]
             }
+        case "GET-ANIME":
+            return {
+                ...state,
+                anime: {...action.payload}
+            }
+        case "GET-GENRES":
+            return {
+                ...state,
+                genres: [...action.payload]
+            }
         default:
             return state
     }
@@ -42,6 +54,8 @@ const animeReducer = (state = initialState, action) => {
 export const getAnimesAC = (payload) => ({type: "GET-ANIMES", payload})
 export const toggleFetchingAc = (payload) => ({type: 'TOGGLE-FETCHING', payload})
 export const searchAnimeAC = (payload) => ({type: 'SEARCH-ANIME', payload})
+export const getAnimeAC = (payload) => ({type: "GET-ANIME", payload})
+export const getGenresAC = (payload) => ({type: "GET-GENRES", payload})
 
 //filter
 export const descendingFilterAC = (payload) => ({type: 'DESCENDING-FILTER', payload})
@@ -67,7 +81,6 @@ export const searchAnimeThunk = (searchTerm) => {
 }
 
 // FILTERS
-// DESCENDING
 export const descendingFilterThunk = (page, filterParam) => {
     return dispatch => {
         axios.get(`https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=${page}&sort=${filterParam}`)
@@ -76,5 +89,19 @@ export const descendingFilterThunk = (page, filterParam) => {
     }
 }
 
+// GET ONE ANIME
+export const getAnimeThunk = (id) => {
+    return dispatch => {
+        axios.get(`https://kitsu.io/api/edge/anime/${id}`)
+        .then(res => dispatch(getAnimeAC(res.data.data)))
+    }
+}
+//GET GENRES 
+export const getGenresThunk = (id) => {
+    return dispatch => {
+        axios.get(`https://kitsu.io/api/edge/anime/${id}/genres`)
+        .then(res => dispatch(getGenresAC(res.data.data)))
+    }
+}
 
 export default animeReducer;

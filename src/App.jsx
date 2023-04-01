@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useParams } from "react-router-dom"
 
 import NavHeader from "./components/header/NavHeader"
 import Search from "./components/search/Search"
@@ -10,15 +10,15 @@ import DescendingFilter from "./components/Cards/filtersPage/DescendingFilter"
 
 
 function App() {
- 
+  
   return (
     <div className="App">
       <NavHeader/>
-      <Search />
+      <Search/>
       <Routes>
-        <Route path="/anime" element={<Cards />}/>
-        <Route path="/anime/filter/:filterParam" element={<DescendingFilter />}/>
-        <Route path="/anime/:id" element={<AnimeInfo />}/>
+        <Route path="/:animeOrManga" element={<Cards />}/>
+        <Route path="/:animeOrManga/filter/:filterParam" element={<DescendingFilter />}/>
+        <Route path="/:animeOrManga/:id" element={<AnimeInfo />}/>
       </Routes>
     </div>
   )

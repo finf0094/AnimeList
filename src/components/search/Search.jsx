@@ -29,9 +29,9 @@ const Search = () => {
           <div className={s.dropdown}>
             <button className={s.dropbtn}>All</button>
             <div className={s.dropdownContent}>
-              <Link to="/anime/filter/-averageRating">descending rating</Link>
-              <Link to="/anime/filter/averageRating">ascending rating</Link>
-              <Link to="/anime/filter/popularityRank">Popularity</Link>
+              <a href="/anime/filter/-averageRating">descending rating</a>
+              <a href="/anime/filter/averageRating">ascending rating</a>
+              <a href="/anime/filter/popularityRank">Popularity</a>
             </div>
           </div>
           <button className={s.searchBtn} onClick={handleSearch}>
