@@ -9,10 +9,11 @@ const AnimeInfo = () => {
   const dispatch = useDispatch()
   const { anime, genres } = useSelector(state => state.anime)
   const { id } = useParams();
+  const { animeOrManga } = useParams()
 
   useEffect(() => {
-    dispatch(getAnimeThunk(id))
-    dispatch(getGenresThunk(id))
+    dispatch(getAnimeThunk(id, animeOrManga))
+    dispatch(getGenresThunk(id, animeOrManga))
   }, [])
 
 

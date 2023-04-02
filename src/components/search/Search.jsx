@@ -3,11 +3,14 @@ import React, { useState } from 'react'
 import s from './search.module.css'
 
 import search from '../../icons/search.png'
-import { searchAnimeThunk } from '../../store/animeReducer';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { clearFilterAC, searchAnimeThunk } from '../../store/animeReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 
 const Search = () => {
+  const animeOrManga = useSelector(state => state.anime.animeOrManga);
+  const filterParam = useSelector(state => state.anime.getFilter)
   const dispatch = useDispatch()
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -21,17 +24,22 @@ const Search = () => {
     }
   };
 
+  const clearFilter = (e) => {
+    e.preventDefault()
+    clearFilterAC()
+  }
+
   return (
     <div className={s.wrapper} >
       <div className={s.input}>
         <input type="search" placeholder='Search Anime, Manga and more...' onChange={(e) => setSearchTerm(e.target.value)} />
         <div className={s.searchPanel}>
           <div className={s.dropdown}>
-            <button className={s.dropbtn}>All</button>
+            <button className={s.dropbtn} onClick={clearFilter}>{filterParam ? filterParam : "All"}</button>
             <div className={s.dropdownContent}>
-              <a href="/anime/filter/-averageRating">descending rating</a>
-              <a href="/anime/filter/averageRating">ascending rating</a>
-              <a href="/anime/filter/popularityRank">Popularity</a>
+              <NavLink to={`/${animeOrManga}/filter/-averageRating`}>descending rating</NavLink>
+              <NavLink to={`/${animeOrManga}/filter/averageRating`}>ascending rating</NavLink>
+              <NavLink to={`/${animeOrManga}/filter/popularityRank`}>Popularity</NavLink>
             </div>
           </div>
           <button className={s.searchBtn} onClick={handleSearch}>

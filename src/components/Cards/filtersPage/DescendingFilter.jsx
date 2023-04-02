@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
-import { descendingFilterThunk, toggleFetchingAc } from '../../../store/animeReducer';
+import { clearFilterAC, descendingFilterThunk, getFilterAC, toggleFetchingAc } from '../../../store/animeReducer';
 
 import rating from '../../../icons/rating.png'
 import s from '../cards.module.css'
@@ -10,16 +10,18 @@ import { Link, useParams } from 'react-router-dom';
 const DescendingFilter = () => {
     const dispatch = useDispatch()
     const {filterParam} = useParams();
+    const {animeOrManga} = useParams();
     const animes = useSelector(state => state.anime.descendingFilter);
     const fetching = useSelector(state => state.anime.fetching)
     const [page, setPage] = useState(0);
-    
-    useEffect(() => {   
+
+    animes ? useEffect(() => {   
         if (fetching) {
-            dispatch(descendingFilterThunk(page, filterParam));
+            dispatch(descendingFilterThunk(page, filterParam, animeOrManga));
+            dispatch(getFilterAC(filterParam))
             setPage(page + 20)
         }
-    }, [fetching])
+    }, [fetching]) : dispatch(clearFilterAC())
 
     useEffect(() => {
         document.addEventListener('scroll', scrollHandler)
@@ -37,7 +39,7 @@ const DescendingFilter = () => {
     return (
         <div className={s.wrapper}>
             {animes.map(anime => (
-                <Link to={`/anime/${anime.id}`} className={s.card} key={anime.id}>
+                <Link to={`/${animeOrManga}/${anime.id}`} className={s.card} key={anime.id}>
                     <img src={anime.attributes.posterImage.small} alt="anime image" />
                     <div className={s.row}>
                         <h4 className={s.animeTitle}>{anime.attributes.canonicalTitle}</h4>

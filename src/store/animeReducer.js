@@ -5,9 +5,11 @@ import axios from "axios"
 const initialState = {
     animes: [],
     descendingFilter: [],
-    fetching: true,
+    fetching: false,
     anime: {},
-    genres: []
+    genres: [],
+    animeOrManga: '',
+    getFilter: ''
 }
 
 const animeReducer = (state = initialState, action) => {
@@ -44,6 +46,21 @@ const animeReducer = (state = initialState, action) => {
                 ...state,
                 genres: [...action.payload]
             }
+        case "ANIME-OR-MANGA":
+            return {
+                ...state,
+                animeOrManga: action.payload
+            }
+        case "GET-FILTER":
+            return {
+                ...state,
+                getFilter: action.payload
+            }
+        case "CLEAR-FILTER":
+            return {
+                ...state,
+                descendingFilter: []
+            }
         default:
             return state
     }
@@ -56,16 +73,20 @@ export const toggleFetchingAc = (payload) => ({type: 'TOGGLE-FETCHING', payload}
 export const searchAnimeAC = (payload) => ({type: 'SEARCH-ANIME', payload})
 export const getAnimeAC = (payload) => ({type: "GET-ANIME", payload})
 export const getGenresAC = (payload) => ({type: "GET-GENRES", payload})
+export const animeOrMangaAC = (payload) => ({type: 'ANIME-OR-MANGA', payload})
+export const getFilterAC = (payload) => ({type: 'GET-FILTER', payload})
+export const clearFilterAC = () => ({type: "CLEAR-FILTER"})
 
 //filter
 export const descendingFilterAC = (payload) => ({type: 'DESCENDING-FILTER', payload})
 
 
+
 // THUNK'S
 // GET FULL ANIME DATA CARDS
-export const getAnimesThunk = (page) => {
+export const getAnimesThunk = (page, animeOrManga) => {
     return dispatch => {
-        axios.get(`https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=${page}`)
+        axios.get(`https://kitsu.io/api/edge/${animeOrManga}?page[limit]=20&page[offset]=${page}`)
         .then(res => dispatch(getAnimesAC(res.data.data)))
         .finally(() => dispatch(toggleFetchingAc(false)))
     };
@@ -73,33 +94,33 @@ export const getAnimesThunk = (page) => {
 
 
 // SEARCH FILTER ANIME THUNKS
-export const searchAnimeThunk = (searchTerm) => {
+export const searchAnimeThunk = (searchTerm, animeOrManga = 'anime') => {
     return dispatch => {
-        axios.get(`https://kitsu.io/api/edge/anime?filter[text]=${searchTerm}`)
+        axios.get(`https://kitsu.io/api/edge/${animeOrManga}?filter[text]=${searchTerm}`)
         .then(res => dispatch(searchAnimeAC(res.data.data)))
     }
 }
 
 // FILTERS
-export const descendingFilterThunk = (page, filterParam) => {
+export const descendingFilterThunk = (page, filterParam, animeOrManga) => {
     return dispatch => {
-        axios.get(`https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=${page}&sort=${filterParam}`)
+        axios.get(`https://kitsu.io/api/edge/${animeOrManga}?page[limit]=20&page[offset]=${page}&sort=${filterParam}`)
         .then(res => dispatch(descendingFilterAC(res.data.data)))
         .finally(() => dispatch(toggleFetchingAc(false)))
     }
 }
 
 // GET ONE ANIME
-export const getAnimeThunk = (id) => {
+export const getAnimeThunk = (id, animeOrManga) => {
     return dispatch => {
-        axios.get(`https://kitsu.io/api/edge/anime/${id}`)
+        axios.get(`https://kitsu.io/api/edge/${animeOrManga}/${id}`)
         .then(res => dispatch(getAnimeAC(res.data.data)))
     }
 }
 //GET GENRES 
-export const getGenresThunk = (id) => {
+export const getGenresThunk = (id, animeOrManga) => {
     return dispatch => {
-        axios.get(`https://kitsu.io/api/edge/anime/${id}/genres`)
+        axios.get(`https://kitsu.io/api/edge/${animeOrManga}/${id}/genres`)
         .then(res => dispatch(getGenresAC(res.data.data)))
     }
 }
