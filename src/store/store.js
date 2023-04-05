@@ -2,9 +2,11 @@ import { applyMiddleware, combineReducers, legacy_createStore as createStore } f
 import thunk from "redux-thunk";
 
 import animeReducer from "./animeReducer";
+import postReducer from "./postReducer";
 
 const rootReducer = combineReducers({
     anime: animeReducer,
+    post: postReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

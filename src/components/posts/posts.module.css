@@ -1,0 +1,10 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-auto-rows: 445px;
+    margin: 30px 50px;
+}
+
+.wrapper img {
+    border-radius: 10px;
+}

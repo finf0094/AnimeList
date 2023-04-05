@@ -23,7 +23,8 @@ const NavHeader = () => {
           isActive ? s.active : ""} onClick={clear}>Anime</NavLink></li>
         <li><NavLink to="/manga" className={({isActive}) =>
           isActive ? s.active : ""} onClick={clear}>Manga</NavLink></li>
-        <li>Community</li>
+        <li><NavLink to="/posts" className={({isActive}) =>
+          isActive ? s.active : ""} onClick={clear}>Posts</NavLink></li>
         <li>Industry</li>
         <li>Watch</li>
         <li>Store</li>

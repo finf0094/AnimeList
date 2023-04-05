@@ -15,7 +15,6 @@ const Cards = () => {
   const fetching = useSelector(state => state.anime.fetching)
   const [page, setPage] = useState(0);
 
-
   useEffect(() => {
     if (fetching) {
       console.log(page)

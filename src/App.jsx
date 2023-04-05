@@ -7,6 +7,7 @@ import AnimeInfo from "./components/animeInfo/animeInfo"
 
 import './app.css'
 import DescendingFilter from "./components/Cards/filtersPage/DescendingFilter"
+import Posts from "./components/posts/posts"
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <NavHeader/>
       <Search/>
       <Routes>
+        <Route path="/posts" element={<Posts />}/>
         <Route path="/:animeOrManga" element={<Cards />}/>
         <Route path="/:animeOrManga/filter/:filterParam" element={<DescendingFilter />}/>
         <Route path="/:animeOrManga/:id" element={<AnimeInfo />}/>
